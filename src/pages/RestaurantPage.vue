@@ -1,12 +1,12 @@
 <template>
-  <div class="container-fluid">
+  <div class="container-fluid p-0">
     <div id="restaurantPageSection">
       <div class="container py-5">
         <div class="row py-4">
           <div class="col-lg-7 pt-5 text-center restaurant">
             <h1 class="pt-5">
               <div class="white" v-if="restaurantComp !== null">
-                <h2>{{ restaurant.name }}</h2>
+                <h2 class="white">{{ restaurant.name }}</h2>
               </div>
             </h1>
           </div>
@@ -15,7 +15,7 @@
       <div class="gradeAndSearch">
         <div class="container pt-4">
           <div class="d-flex">
-            <img src="img/1.gif" />
+            <img src="../assets/img/1.gif" />
 
             <div id="grade">
               <h3>9.6<sup>od 10</sup></h3>
@@ -35,7 +35,7 @@
           <div class="col-md-2"></div>
           <div class="col-md-8">
             <base-article
-              v-for="a in this.articles"
+              v-for="a in this.restaurantArticles"
               :visible="a.logicalDeleted !== 1"
               :key="a.id"
               :ida="a.id"
@@ -57,7 +57,8 @@
           </div>
         </div>
       </div>
-      <button @click="addArticlesToCart">Idi na kolica</button>
+      <button @click="addArticlesToCart">Dodaj u kolica</button>
+      <button @click="showCart">Idi na kolica</button>
     </div>
     <div class="row" v-if="commentsForRestaurant.length !== 0">
       <BaseComment
@@ -76,6 +77,7 @@
 
 <script>
 import axios from "axios";
+import BaseArticle from "../components/BaseArticle.vue";
 export default {
   name: "RestaurantPage",
   data() {
@@ -103,20 +105,23 @@ export default {
   mounted() {
     this.cartId = this.$store.getters["userModule/user"].cartId;
     this.getRestaurant();
-    let style = document.createElement("link");
-    style.type = "text/css";
-    style.rel = "stylesheet";
-    style.href = "css/restaurantPage.css";
-    document.head.appendChild(style);
     this.isRestaurantManager();
     this.getRestaurantArticles();
     this.getCartRestaurantId();
     this.getComments();
   },
+  components: { BaseArticle },
   computed: {
     restaurantArticles() {
+      console.log("aaarr");
+      // console.log(
+      //   Object.assign(
+      //     {},
+      //     this.$store.getters["restaurantArticlesModule/articles"]
+      //   )
+      // );
       // eslint-disable-next-line vue/no-side-effects-in-computed-properties
-      return (this.articles =
+      return (this.restaurantArticles =
         this.$store.getters["restaurantArticlesModule/articles"]);
     },
     restaurantComp() {
@@ -198,32 +203,34 @@ export default {
     getCartRestaurantId() {
       this.$store.dispatch("cartModule/getCartRestaurantId");
     },
-
+    showCart() {
+      this.$router.push("/Cart/" + this.userId);
+    },
     addArticlesToCart() {
-      //Fali za dodavanje
       this.activeCartId = this.$store.getters["cartModule/activeCart"];
       console.log("aktivan" + this.activeCartId);
-      if (this.activeCartId === parseInt(this.$route.params.id)) {
-        this.dodajUKorpu();
-        setTimeout(() => {
-          this.$router.push("/Cart/" + this.cartId);
-        }, 500);
-        //this.$router.push('/Cart/1');
-      } else if (this.activeCartId === -1) {
-        this.$store.commit("cartModule/setActiveCart", this.$route.params.id);
-        this.dodajUKorpu();
-        setTimeout(() => {
-          this.$router.push("/Cart/" + this.cartId);
-        }, 500);
-      } else {
-        // greska
-        var r = confirm(
-          "Oslobodite aktivnu korpu da bi ste narucili iz novog restorana"
-        );
-        if (r == true) {
-          this.$router.push("/Cart/" + this.cartId);
-        }
-      }
+      this.dodajUKorpu();
+      // if (this.activeCartId === parseInt(this.$route.params.id)) {
+      //   this.dodajUKorpu();
+      //   // setTimeout(() => {
+      //   //   this.$router.push("/Cart/" + this.cartId);
+      //   // }, 500);
+      //   //this.$router.push('/Cart/1');
+      // } else if (this.activeCartId === -1) {
+      //   this.$store.commit("cartModule/setActiveCart", this.$route.params.id);
+      //   this.dodajUKorpu();
+      //   // setTimeout(() => {
+      //   //   this.$router.push("/Cart/" + this.cartId);
+      //   // }, 500);
+      // } else {
+      //   // greska
+      //   var r = confirm(
+      //     "Oslobodite aktivnu korpu da bi ste narucili iz novog restorana"
+      //   );
+      //   if (r == true) {
+      //     this.$router.push("/Cart/" + this.cartId);
+      //   }
+      // }
     },
     isRestaurantManager() {
       this.isManagerOfRestaurant =
@@ -241,7 +248,7 @@ export default {
   display: flex;
   width: 100%;
   height: 650px;
-  background: url("../app/img/lily-banse--YHSwy6uqvk-unsplash.jpg") no-repeat;
+  background: url("../assets/img/lily-banse--YHSwy6uqvk-unsplash.jpg") no-repeat;
   background-size: cover;
 }
 .container-fluid {
@@ -250,6 +257,10 @@ export default {
 
 .white {
   color: white;
+  font-size: 50px;
+  line-height: 50px;
+  font-weight: 700;
+  background: rgba(0, 0, 0, 0.33);
 }
 
 .gradeAndSearch {

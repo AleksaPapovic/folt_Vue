@@ -87,7 +87,7 @@ export default {
 }
 
 .card {
-  border: 0px;
+  border: 0px !important;
   -webkit-box-shadow: 0px 0px 20px 2px black !important;
   -moz-box-shadow: 0px 0px 20px 2px black !important;
   box-shadow: 0px 0px 20px 2px black !important;

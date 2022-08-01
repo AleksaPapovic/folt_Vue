@@ -3,7 +3,7 @@ import axios from "axios";
 export default {
   getRestaurant(context, payload) {
     axios
-      .get("rest/restaurants/" + payload.restaurantId)
+      .get("restaurant/" + payload.restaurantId)
       .then((response) => {
         this.message = response.data;
         console.log("\n\n -------Izmenjeni PODACI -------\n");

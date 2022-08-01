@@ -3,7 +3,7 @@ import axios from "axios";
 export default {
   login(context, payload) {
     axios
-      .post("users/login", {
+      .post("user/login", {
         username: "" + payload.loginUsername,
         password: "" + payload.loginPassword,
       })
@@ -27,7 +27,7 @@ export default {
   },
   logout(context) {
     axios
-      .post("users/logout")
+      .post("user/logout")
       .then((response) => {
         console.log(response);
         context.commit("userModule/loggedOut", this.user, { root: true });

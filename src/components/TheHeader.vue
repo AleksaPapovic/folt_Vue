@@ -3,7 +3,7 @@
     <header class="header-area overlay">
       <nav class="navbar sticky-top navbar-expand-lg navbar-dark">
         <div class="container">
-          <router-link to="/" class="navbar-brand">MFood</router-link>
+          <router-link to="/" class="navbar-brand">Folt Delivery</router-link>
           <button
             class="navbar-toggler"
             type="button"
@@ -58,7 +58,7 @@
               <li v-if="isCustomer && cartIdComp">
                 <router-link
                   class="nav-link"
-                  :to="{ name: 'Cart', params: { id: this.cartId } }"
+                  :to="{ name: 'Cart', params: { id: this.userId } }"
                   >Kolica</router-link
                 >
               </li>
@@ -82,6 +82,7 @@ export default {
     return {
       productPage: false,
       cartId: null,
+      userId: 3,
     };
   },
   methods: {

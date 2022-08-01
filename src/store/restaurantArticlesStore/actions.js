@@ -3,11 +3,14 @@ import axios from "axios";
 export default {
   getRestaurantArticles(context, payload) {
     axios
-      .get("rest/articles/restaurant/" + payload.restaurantId)
+      .get("restaurant/" + payload.restaurantId)
       .then((response) => {
         console.log("\n\n -------Artikli -------\n");
-        context.commit("setRestaurantArticles", response.data);
-        console.log(response.data);
+        context.commit(
+          "setRestaurantArticles",
+          response.data.menu._menuArticle
+        );
+        console.log(response.data.menu._menuArticle);
         console.log("\n\n ----------------------\n\n");
       })
       .catch((err) => {

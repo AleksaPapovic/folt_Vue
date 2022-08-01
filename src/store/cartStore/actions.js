@@ -35,7 +35,7 @@ export default {
     let articleIdsWithQuantity = new Map();
     articleIdsWithQuantity = payload.map;
     axios
-      .post("rest/carts/addArticlesToCart", articleIdsWithQuantity)
+      .post("order", { orderItems: articleIdsWithQuantity })
       .then((response) => {
         this.message = response.data;
         console.log("\n\n -------Dodata korpa -------\n");

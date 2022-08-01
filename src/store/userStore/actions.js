@@ -3,7 +3,7 @@ import axios from "axios";
 export default {
   setCurrentUser(context) {
     axios
-      .get("rest/edit/profileUser")
+      .get("user/principal")
       .then((response) => {
         console.log("\n\n ------- Ulogovani -------\n");
         console.log(response.data);
@@ -44,7 +44,7 @@ export default {
   },
   getUsers(context) {
     axios
-      .get("rest/user")
+      .get("user")
       .then((response) => {
         console.log("\n\n ------- Korisnici -------\n");
         console.log(response.data);
@@ -59,7 +59,7 @@ export default {
   },
   getUser(context, payload) {
     axios
-      .get("rest/users/" + payload.userId)
+      .get("user/" + payload.userId)
       .then((response) => {
         console.log("\n\n ------- Korisnik -------\n");
         context.state.user = response.data;
