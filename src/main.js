@@ -9,6 +9,6 @@ const app = createApp(App);
 
 app.use(store);
 app.use(router);
-axios.defaults.baseURL = "https://localhost:5001/";
+axios.defaults.baseURL = "https://localhost:5001/api/";
 
 app.mount("#app");

@@ -5,7 +5,7 @@ export default {
     console.log(payload);
 
     axios
-      .post("rest/users/registration", {
+      .post("user/registration", {
         username: payload.username,
         password: payload.password,
         name: payload.name,
@@ -29,7 +29,7 @@ export default {
   addManagerDeliver(context, payload) {
     console.log(payload);
     axios
-      .post("rest/users/addUser", {
+      .post("user/addUser", {
         username: payload.username,
         password: payload.password,
         name: payload.name,

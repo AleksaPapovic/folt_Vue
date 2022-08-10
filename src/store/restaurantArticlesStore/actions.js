@@ -8,9 +8,9 @@ export default {
         console.log("\n\n -------Artikli -------\n");
         context.commit(
           "setRestaurantArticles",
-          response.data.menu._menuArticle
+          response.data.menu._menuProducts
         );
-        console.log(response.data.menu._menuArticle);
+        console.log(response.data.menu._menuProducts);
         console.log("\n\n ----------------------\n\n");
       })
       .catch((err) => {

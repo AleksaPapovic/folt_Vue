@@ -48,7 +48,7 @@ export default {
   },
   addOrder(context, payload) {
     axios
-      .post("rest/orders/createOrder/" + payload.cartId, payload.cartPrice, {
+      .post("orders/createOrder/" + payload.cartId, payload.cartPrice, {
         headers: { "Content-type": "application/json" },
       })
       .then((response) => {

@@ -3,6 +3,7 @@ export default {
     return state.module;
   },
   articles(state) {
+    console.log("upao",state.articles);
     return state.articles;
   },
 };

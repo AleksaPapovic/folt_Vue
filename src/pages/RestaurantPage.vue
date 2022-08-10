@@ -29,7 +29,7 @@
         </div>
       </div>
     </div>
-    <div v-if="restaurantArticles.length !== 0" id="restaurantPageArticle">
+    <div v-if="restaurantArticles!== undefined &&  restaurantArticles !== null" id="restaurantPageArticle">
       <div class="container pt 2">
         <div class="row">
           <div class="col-md-2"></div>
@@ -49,10 +49,10 @@
           </div>
           <div class="col-md-2">
             <div>
-              <h3>{{ restaurant.type }}</h3>
+              <h3>restaurant.type </h3>
             </div>
             <div>
-              <h3>{{ restaurant.status }}</h3>
+              <h3> restaurant.status </h3>
             </div>
           </div>
         </div>
@@ -107,21 +107,20 @@ export default {
     this.getRestaurant();
     this.isRestaurantManager();
     this.getRestaurantArticles();
-    this.getCartRestaurantId();
-    this.getComments();
+    //this.getComments();
   },
   components: { BaseArticle },
   computed: {
     restaurantArticles() {
       console.log("aaarr");
-      // console.log(
-      //   Object.assign(
-      //     {},
-      //     this.$store.getters["restaurantArticlesModule/articles"]
-      //   )
-      // );
+       console.log(
+        Object.assign(
+           {},
+           this.$store.getters["restaurantArticlesModule/articles"]
+         )
+       );
       // eslint-disable-next-line vue/no-side-effects-in-computed-properties
-      return (this.restaurantArticles =
+      return (this.articles =
         this.$store.getters["restaurantArticlesModule/articles"]);
     },
     restaurantComp() {
@@ -199,9 +198,6 @@ export default {
       this.$store.dispatch("restaurantModule/getRestaurant", {
         restaurantId: this.$route.params.id,
       });
-    },
-    getCartRestaurantId() {
-      this.$store.dispatch("cartModule/getCartRestaurantId");
     },
     showCart() {
       this.$router.push("/Cart/" + this.userId);

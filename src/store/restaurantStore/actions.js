@@ -18,7 +18,7 @@ export default {
   },
   addRestaurantUpdateManager(context, payload) {
     axios
-      .post("rest/restaurants/addRestaurant/" + payload.manager, {
+      .post("restaurant/addRestaurant/" + payload.manager, {
         restaurant: {
           name: payload.name,
           type: payload.type,
@@ -40,7 +40,7 @@ export default {
   },
   addArticle(context, payload) {
     axios
-      .post("rest/articles/addArticle", {
+      .post("articles/addArticle", {
         name: payload.articleName,
         price: payload.articlePrice,
         type: payload.articleType,
@@ -63,7 +63,7 @@ export default {
   },
   updateArticle(context, payload) {
     axios
-      .put("rest/articles/updateArticle/" + payload.id, {
+      .put("articles/updateArticle/" + payload.id, {
         name: payload.articleName,
         price: payload.articlePrice,
         type: payload.articleType,
