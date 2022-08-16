@@ -5,6 +5,7 @@ import Restaurant from "./pages/RestaurantPage";
 import Administrator from "./pages/AdministratorPage";
 import CreateArticle from "./pages/CreateArticlePage";
 import ShowUsers from "./pages/ShowUsersPage";
+import CartComponent from "./pages/CartPage";
 
 const routes = [
   {
@@ -52,10 +53,11 @@ const routes = [
   //     component: UpdateArticleComponent
   //   } ,
   //   {
-  //     path: '/Cart/:id',
-  //     name: 'Cart',
-  //     component: CartComponent
-  //   },
+  { 
+    path: '/Cart/:id',
+    name: 'Cart',
+    component: CartComponent
+  },
   //   {
   //     path: '/Orders',
   //     name: 'Orders',

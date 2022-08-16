@@ -3,7 +3,11 @@ import axios from "axios";
 export default {
   getOrders(context) {
     axios
-      .get("rest/orders")
+      .get("rest/orders",{
+        headers: {
+           'Authorization': localStorage.getItem.token
+        }
+      })
       .then((response) => {
         console.log("\n\n -------Porudzbine -------\n");
         context.commit("setOrders", response.data);
@@ -49,7 +53,7 @@ export default {
   addOrder(context, payload) {
     axios
       .post("orders/createOrder/" + payload.cartId, payload.cartPrice, {
-        headers: { "Content-type": "application/json" },
+        headers: { "Content-type": "application/json",'Authorization': localStorage.getItem("token") },
       })
       .then((response) => {
         console.log("\n\n -------Porudzbine -------\n");

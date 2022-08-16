@@ -7,16 +7,17 @@
       <div class="container pt 2">
         <div class="row">
           <div class="col-md-2"></div>
-          <div v-if="cartArticles.length !== 0" class="col-md-8">
+          <div v-if= "cartArticles!== undefined &&  cartArticles !== null" class="col-md-8">
+         
+             // :name="a.article.name"
+             // :description="a.article.description"
+             //  :price="a.article.price"
             <base-article
               v-for="a in art"
-              :key="a.article.id"
-              v-show="a.article.logicalDeleted !== 1"
-              :ida="a.article.id"
-              :name="a.article.name"
-              :description="a.article.description"
+              :key="a.article"
+              :ida="a.article"
+           
               :quantity="a.brojPorucenih"
-              :price="a.article.price"
               @dodaj="noviArtikal"
               @ukloni="ukloniArtikal"
             >
@@ -33,6 +34,7 @@
 </template>
 
 <script>
+import BaseArticle from "../components/BaseArticle.vue";
 export default {
   name: "CartPage",
   data() {
@@ -61,13 +63,9 @@ export default {
   },
   mounted() {
     this.cartId = this.$store.getters["userModule/user"].cartId;
-    let style = document.createElement("link");
-    style.type = "text/css";
-    style.rel = "stylesheet";
-    style.href = "css/restaurantPage.css";
-    document.head.appendChild(style);
     this.getCartArticles();
   },
+   components: { BaseArticle },
   computed: {
     cartArticles() {
       // eslint-disable-next-line vue/no-side-effects-in-computed-properties
@@ -75,18 +73,23 @@ export default {
       console.log("artikli su" + this.articles);
       // eslint-disable-next-line vue/no-side-effects-in-computed-properties
       this.art = [];
-      this.articles.forEach((key, value) => {
-        this.art.push({ article: JSON.parse(value), brojPorucenih: key });
-        this.restaurantID = JSON.parse(value).restaurantId;
+      this.articles.forEach(e => {
+       this.art.push({ article: e.id, brojPorucenih: e.quantity });
+        //this.restaurantID = value.restaurantId;
       });
-
+      console.log("ART",JSON.parse(JSON.stringify(this.art)));
+       // eslint-disable-next-line vue/no-side-effects-in-computed-properties
+      this.art = JSON.parse(JSON.stringify(this.art));
       let sumica = 0;
-      this.articles.forEach((key, value) => {
-        sumica += JSON.parse(value).price * key;
+      this.articles.forEach(e => {
+              console.log("ovde", e.cost.amount);
+            console.log("test ",e.id);
+               console.log("test2 ",e.quantity);
+        sumica += e.cost.amount * e.quantity;
         this.korpa.push({
-          id: JSON.parse(value).id,
-          brojPorucenih: key,
-        });
+          id: e.id,
+          brojPorucenih: e.quantity,
+         });
       });
       console.log(sumica);
       // eslint-disable-next-line vue/no-side-effects-in-computed-properties
@@ -211,4 +214,73 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+#restaurantPageSection {
+  position: relative;
+  display: flex;
+  width: 100%;
+  height: 650px;
+  background: url("../assets/img/lily-banse--YHSwy6uqvk-unsplash.jpg") no-repeat;
+  background-size: cover;
+}
+.container-fluid {
+  padding: 0px;
+}
+
+.white {
+  color: white;
+  font-size: 50px;
+  line-height: 50px;
+  font-weight: 700;
+  background: rgba(0, 0, 0, 0.33);
+}
+
+.gradeAndSearch {
+  position: absolute;
+  background: white;
+  width: 70%;
+  min-height: 90px;
+  left: 15%;
+  bottom: 0%;
+  margin-bottom: -40px;
+  border-radius: 10px;
+  -webkit-box-shadow: 0px 0px 15px -5px black !important;
+  -moz-box-shadow: 0px 0px 15x -5px black !important;
+  box-shadow: 0px 0px 15px -5px black !important;
+}
+
+.gradeAndSearch .container img {
+  width: 50px;
+  height: 50px;
+  padding: 0px;
+}
+
+#grade {
+  display: inline-flex;
+  width: 100px;
+}
+
+.ml-auto #articleSearch > input {
+  width: 250px;
+  border: 1px solid #80808060;
+  border-radius: 10px;
+  background: #80808024;
+  height: 40px;
+}
+
+#restaurantTextSection {
+  background: green;
+}
+
+#restaurantPageArticle {
+  margin-top: 50px;
+  background: white;
+  width: 100%;
+  height: 500px;
+}
+
+.iplus {
+  font-size: 35px;
+  padding: 10px;
+}
+</style>

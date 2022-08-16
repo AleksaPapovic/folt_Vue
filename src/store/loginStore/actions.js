@@ -12,6 +12,7 @@ export default {
         console.log("\n\n ------- PODACI -------\n");
         console.log(response.data);
         this.user = response.data;
+        localStorage.setItem("token", JSON.stringify(response.data.token));
         context.commit("userModule/setUser", this.user, { root: true });
         console.log("\n\n ----------------------\n\n");
       })
@@ -31,6 +32,7 @@ export default {
       .then((response) => {
         console.log(response);
         context.commit("userModule/loggedOut", this.user, { root: true });
+        localStorage.removeItem("token");
       })
       .catch((err) => {
         console.log("\n\n ------- ERROR -------\n");

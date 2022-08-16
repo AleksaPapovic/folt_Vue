@@ -104,13 +104,13 @@
                   class="radioRegistration"
                   type="radio"
                   v-model="gender"
-                  value="MALE"
+                  value="0"
                 />MALE
                 <input
                   class="radioRegistration"
                   type="radio"
                   v-model="gender"
-                  value="FEMALE"
+                  value="1"
                 />FEMALE
                 <br />
               </div>

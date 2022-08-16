@@ -19,13 +19,6 @@
             {{ r.type }}
           </option>
         </select>
-        <input
-          type="checkbox"
-          class="restaurantsSearchCheckbox"
-          id="checkbox"
-          v-model="open"
-        />
-        <label class="restaurantsSearchLabel" for="checkbox">Otvoren</label>
         <button class="restaurantsSearchButton" @click.prevent="search">
           Pretrazi
         </button>

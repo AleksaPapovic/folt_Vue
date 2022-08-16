@@ -5,14 +5,14 @@ export default {
     console.log(payload);
 
     axios
-      .post("user/registration", {
+      .post("user/register", {
         username: payload.username,
         password: payload.password,
         name: payload.name,
         surname: payload.surname,
-        gender: payload.gender,
+        gender: parseInt(payload.gender),
         dateOfBirth: payload.dateOfBirth,
-        role: "CUSTOMER",
+        role: 0,
       })
       .then((response) => {
         this.message = response.data;

@@ -3,11 +3,15 @@ import axios from "axios";
 export default {
   getCartArticles(context) {
     axios
-      .get("rest/carts/getCartArticles")
+      .get("order/inCart",{
+        headers: { "Content-type": "application/json",'Authorization': localStorage.getItem("token") },
+        
+      })
       .then((response) => {
         console.log("\n\n -------Artikli kolica-------\n");
-        context.commit("setCartArticles", response.data);
-        console.log(response.data);
+        // niz ordera
+        context.commit("setCartArticles", response.data[0].orderItems);
+        console.log(response.data[0].orderItems);
         console.log("\n\n ----------------------\n\n");
       })
       .catch((err) => {
@@ -34,8 +38,12 @@ export default {
   addToCart(context, payload) {
     let articleIdsWithQuantity = new Map();
     articleIdsWithQuantity = payload.map;
+    console.log("token je",localStorage.getItem("token"));
     axios
-      .post("order", { orderQuantities: articleIdsWithQuantity })
+      .post("order", { orderQuantities: articleIdsWithQuantity }, {
+        headers: { "Content-type": "application/json",'Authorization': localStorage.getItem("token") },
+        
+      })
       .then((response) => {
         this.message = response.data;
         console.log("\n\n -------Dodata korpa -------\n");
