@@ -1,8 +1,7 @@
 <template>
   <div class="articleRow" @click="change($event)">
-    <div class="container pt 2">
         <div class="row">
-          <div class="col-md-2"></div>
+          <div class="col-2"></div>
           <div v-if= "this.getOrderItems!== undefined &&  this.getOrderItems !== null" class="col-md-8">
             
              // :name="a.article.name"
@@ -13,18 +12,18 @@
               :key="a.id"
               :ida="a.id"
            
-              :quantity="a.brojPorucenih"
+              :quantity="a.quantity"
               @dodaj="noviArtikal"
               @ukloni="ukloniArtikal"
             >
             </base-article>
           </div>
-          <div class="col-md-2">
-            <button @click="poruci">Poruci</button>
-            Ukupan racun: {{ suma }}
+          <div class="row pt-3">
+          <div class="col-6 offset-4">
+            <button class="btn-success" @click="poruci">Poruci</button> Cena porudzbine: {{ suma }}
+          </div>
           </div>
         </div>
-      </div>
   </div>
 </template>
 
@@ -61,22 +60,21 @@ export default {
       console.log("ORDERIIII C22222", JSON.parse(JSON.stringify(this.orderItems.orderItems)));
       this.currentOrderItems = JSON.parse(JSON.stringify(this.orderItems.orderItems));
       
-       console.log("ORDERIIII C3333", this.currentOrderItems[0].quantity);
-       return this.orderItems;
-      // eslint-disable-next-line vue/no-side-effects-in-computed-properties
-      this.articles = this.$store.getters["cartModule/articles"];
-      console.log("artikli su" + this.articles);
-      // eslint-disable-next-line vue/no-side-effects-in-computed-properties
+         console.log("ORDERIIII C5555", this.currentOrderItems);
+    const arrOfObj1 = Object.values(this.currentOrderItems);
+    console.log("ORDERIIII C66666", arrOfObj1 );
+    
       this.art = [];
-      this.articles.forEach(e => {
+      arrOfObj1.forEach(e => {
        this.art.push({ article: e.id, brojPorucenih: e.quantity });
         //this.restaurantID = value.restaurantId;
       });
+ 
       console.log("ART",JSON.parse(JSON.stringify(this.art)));
        // eslint-disable-next-line vue/no-side-effects-in-computed-properties
       this.art = JSON.parse(JSON.stringify(this.art));
       let sumica = 0;
-      this.articles.forEach(e => {
+      arrOfObj1.forEach(e => {
               console.log("ovde", e.cost.amount);
             console.log("test ",e.id);
                console.log("test2 ",e.quantity);
@@ -90,7 +88,8 @@ export default {
       // eslint-disable-next-line vue/no-side-effects-in-computed-properties
       this.suma = sumica;
 
-      return this.articles;
+     // return this.articles;
+          return this.orderItems;
     }
   },
   methods: {
