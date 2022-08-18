@@ -1,6 +1,6 @@
 export default {
   setCartArticles(state, payload) {
-    state.articles = new Map(Object.entries(payload));
+    state.articles = payload;
   },
   setCart(state, payload) {
     state.cart = payload;

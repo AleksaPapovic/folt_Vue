@@ -10,8 +10,8 @@ export default {
       .then((response) => {
         console.log("\n\n -------Artikli kolica-------\n");
         // niz ordera
-        context.commit("setCartArticles", response.data[0].orderItems);
-        console.log(response.data[0].orderItems);
+        context.commit("setCartArticles", response.data);
+        console.log(response.data);
         console.log("\n\n ----------------------\n\n");
       })
       .catch((err) => {

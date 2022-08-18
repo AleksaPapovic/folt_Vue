@@ -1,16 +1,23 @@
 <template>
-  <div class="container-fluid">
-    <div v-if="cartComp">
-      <h1>Moj Cart</h1>
-    </div>
-    <div id="restaurantPageArticle">
-      <div class="container pt 2">
+  <div class="articleRow" @click="change($event)">
+    <div class="container pt 2">
         <div class="row">
           <div class="col-md-2"></div>
-          <div v-if= "cartArticles!== undefined &&  cartArticles !== null &&  cartArticles !== []" class="col-md-8">
-
-            <the-order v-for="order in cartArticles"
-              :key="order.restaurantID" :orderItems="order"></the-order>
+          <div v-if= "this.getOrderItems!== undefined &&  this.getOrderItems !== null" class="col-md-8">
+            
+             // :name="a.article.name"
+             // :description="a.article.description"
+             //  :price="a.article.price"
+            <base-article
+              v-for="a in currentOrderItems"
+              :key="a.id"
+              :ida="a.id"
+           
+              :quantity="a.brojPorucenih"
+              @dodaj="noviArtikal"
+              @ukloni="ukloniArtikal"
+            >
+            </base-article>
           </div>
           <div class="col-md-2">
             <button @click="poruci">Poruci</button>
@@ -18,26 +25,17 @@
           </div>
         </div>
       </div>
-    </div>
   </div>
 </template>
 
 <script>
-import TheOrder from "../components/TheOrder.vue";
+import BaseArticle from "../components/BaseArticle.vue";
+global.jQuery = require("jquery");
 export default {
   name: "CartPage",
+  props: ['orderItems'],
   data() {
     return {
-      username: "",
-      password: "",
-      confirmPassword: "",
-      firstname: "",
-      surname: "",
-      gender: "",
-      dateofbirth: "",
-      loginUsername: "",
-      loginPassword: "",
-      role: "",
       articles: new Map(),
       korpa: [],
       cart: null,
@@ -51,12 +49,20 @@ export default {
     };
   },
   mounted() {
+  console.log("ORDERIIII", this.orderItems);
     this.cartId = this.$store.getters["userModule/user"].cartId;
     this.getCartArticles();
   },
-   components: { TheOrder },
+   components: { BaseArticle },
   computed: {
-    cartArticles() {
+    getOrderItems() {
+   /* eslint-disable */ 
+      console.log("ORDERIIII CCCCC", this.orderItems);
+      console.log("ORDERIIII C22222", JSON.parse(JSON.stringify(this.orderItems.orderItems)));
+      this.currentOrderItems = JSON.parse(JSON.stringify(this.orderItems.orderItems));
+      
+       console.log("ORDERIIII C3333", this.currentOrderItems[0].quantity);
+       return this.orderItems;
       // eslint-disable-next-line vue/no-side-effects-in-computed-properties
       this.articles = this.$store.getters["cartModule/articles"];
       console.log("artikli su" + this.articles);
@@ -70,38 +76,24 @@ export default {
        // eslint-disable-next-line vue/no-side-effects-in-computed-properties
       this.art = JSON.parse(JSON.stringify(this.art));
       let sumica = 0;
-  //    this.articles.forEach(e => {
-  //            console.log("ovde", e.cost.amount);
-  //          console.log("test ",e.id);
-   //            console.log("test2 ",e.quantity);
-   //     sumica += e.cost.amount * e.quantity;
-    //    this.korpa.push({
-     //     id: e.id,
-   //       brojPorucenih: e.quantity,
-     //    });
-   //   });
+      this.articles.forEach(e => {
+              console.log("ovde", e.cost.amount);
+            console.log("test ",e.id);
+               console.log("test2 ",e.quantity);
+        sumica += e.cost.amount * e.quantity;
+        this.korpa.push({
+          id: e.id,
+          brojPorucenih: e.quantity,
+         });
+      });
       console.log(sumica);
       // eslint-disable-next-line vue/no-side-effects-in-computed-properties
       this.suma = sumica;
 
       return this.articles;
-    },
-    cartComp() {
-      // eslint-disable-next-line vue/no-side-effects-in-computed-properties
-      return (this.cart = this.$store.getters["cartModule/cart"]);
-    },
+    }
   },
   methods: {
-    checkId(val) {
-      console.log(val);
-      let k;
-      this.articles.forEach((key, value) => {
-        if (val === JSON.parse(value)) {
-          k = key;
-        }
-      });
-      return k;
-    },
     overallSum() {
       this.suma = 0;
       let s = 0;
@@ -204,72 +196,5 @@ export default {
 </script>
 
 <style>
-#restaurantPageSection {
-  position: relative;
-  display: flex;
-  width: 100%;
-  height: 650px;
-  background: url("../assets/img/lily-banse--YHSwy6uqvk-unsplash.jpg") no-repeat;
-  background-size: cover;
-}
-.container-fluid {
-  padding: 0px;
-}
 
-.white {
-  color: white;
-  font-size: 50px;
-  line-height: 50px;
-  font-weight: 700;
-  background: rgba(0, 0, 0, 0.33);
-}
-
-.gradeAndSearch {
-  position: absolute;
-  background: white;
-  width: 70%;
-  min-height: 90px;
-  left: 15%;
-  bottom: 0%;
-  margin-bottom: -40px;
-  border-radius: 10px;
-  -webkit-box-shadow: 0px 0px 15px -5px black !important;
-  -moz-box-shadow: 0px 0px 15x -5px black !important;
-  box-shadow: 0px 0px 15px -5px black !important;
-}
-
-.gradeAndSearch .container img {
-  width: 50px;
-  height: 50px;
-  padding: 0px;
-}
-
-#grade {
-  display: inline-flex;
-  width: 100px;
-}
-
-.ml-auto #articleSearch > input {
-  width: 250px;
-  border: 1px solid #80808060;
-  border-radius: 10px;
-  background: #80808024;
-  height: 40px;
-}
-
-#restaurantTextSection {
-  background: green;
-}
-
-#restaurantPageArticle {
-  margin-top: 50px;
-  background: white;
-  width: 100%;
-  height: 500px;
-}
-
-.iplus {
-  font-size: 35px;
-  padding: 10px;
-}
 </style>

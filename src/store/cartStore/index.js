@@ -7,7 +7,7 @@ export default {
   state() {
     return {
       module: "cart",
-      articles: new Map(),
+      articles: [],
       cart: null,
       activeCartId: -1,
     };
