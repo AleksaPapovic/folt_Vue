@@ -27,13 +27,7 @@
 <script>
 export default {
   props: ["id", "komentar", "ocena", "username", "restaurantId", "noButton"],
-  mounted() {
-    let style = document.createElement("link");
-    style.type = "text/css";
-    style.rel = "stylesheet";
-    style.href = "css/baseComment.css";
-    document.head.appendChild(style);
-  },
+  mounted() {},
   data() {
     return {};
   },

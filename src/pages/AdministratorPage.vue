@@ -135,11 +135,6 @@ export default {
     };
   },
   mounted() {
-    let style = document.createElement("link");
-    style.type = "text/css";
-    style.rel = "stylesheet";
-    style.href = "css/administatorCRUD.css";
-    document.head.appendChild(style);
     console.log("manager");
     console.log(this.knowManager);
   },

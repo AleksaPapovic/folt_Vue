@@ -84,11 +84,6 @@ export default {
     };
   },
   mounted() {
-    let style = document.createElement("link");
-    style.type = "text/css";
-    style.rel = "stylesheet";
-    // style.href = 'css/showUsers.css';
-    document.head.appendChild(style);
     this.$store.dispatch("userModule/getUsers");
   },
   computed: {

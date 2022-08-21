@@ -19,8 +19,8 @@
         <div class="col-lg">
           {{ description }}
         </div>
-        <div class="col-lg" style="color: blue">
-          <h5>{{ price }}</h5>
+        <div class="col-lg" style="color: green">
+          <h5>{{ price }} dinara</h5>
         </div>
       </div>
       <transition name="aImg">
@@ -83,11 +83,6 @@ export default {
   ],
   mounted() {
     $("#baseDialogForm").modal("show");
-    let style = document.createElement("link");
-    style.type = "text/css";
-    style.rel = "stylesheet";
-    style.href = "css/baseArticle.css";
-    document.head.appendChild(style);
     this.isClicked = false;
     this.theme = "idA" + this.id;
     this.fullTheme = "idF" + this.id;

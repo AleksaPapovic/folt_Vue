@@ -8,6 +8,7 @@ export default {
     return {
       module: "cart",
       articles: [],
+      cartPrice:0,
       cart: null,
       activeCartId: -1,
     };

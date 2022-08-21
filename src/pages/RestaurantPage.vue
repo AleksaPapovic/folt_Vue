@@ -29,7 +29,10 @@
         </div>
       </div>
     </div>
-    <div v-if="restaurantArticles!== undefined &&  restaurantArticles !== null" id="restaurantPageArticle">
+    <div
+      v-if="restaurantArticles !== undefined && restaurantArticles !== null"
+      id="restaurantPageArticle"
+    >
       <div class="container pt 2">
         <div class="row">
           <div class="col-md-2"></div>
@@ -41,7 +44,7 @@
               :ida="a.id"
               :name="a.name"
               :description="a.description"
-              :price="a.price"
+              :price="a.price.amount"
               :isManagerRestaurant="isManagerOfRestaurant"
               @dodaj="noviArtikal"
               @ukloni="ukloniArtikal"
@@ -49,10 +52,10 @@
           </div>
           <div class="col-md-2">
             <div>
-              <h3>restaurant.type </h3>
+              <h3>Narucite</h3>
             </div>
             <div>
-              <h3> restaurant.status </h3>
+              <h3>Folt dostava</h3>
             </div>
           </div>
         </div>
@@ -113,12 +116,12 @@ export default {
   computed: {
     restaurantArticles() {
       console.log("aaarr");
-       console.log(
+      console.log(
         Object.assign(
-           {},
-           this.$store.getters["restaurantArticlesModule/articles"]
-         )
-       );
+          {},
+          this.$store.getters["restaurantArticlesModule/articles"]
+        )
+      );
       // eslint-disable-next-line vue/no-side-effects-in-computed-properties
       return (this.articles =
         this.$store.getters["restaurantArticlesModule/articles"]);
@@ -176,12 +179,14 @@ export default {
           }
         });
       }
-      //let map = new Map();
+      let map = new Map();
       console.log(this.korpa);
-      // for (const [key, value] of Object.entries(this.korpa)) {
-      //   console.log(`${value.id}: ${value.brojPorucenih}`);
-      //   map[value.id] = value.brojPorucenih;
-      // }
+      for (const [, value] of Object.entries(this.korpa)) {
+        console.log(`${value.id}: ${value.brojPorucenih}`);
+        map[value.id] = value.brojPorucenih;
+      }
+      this.mapaKorpa = map;
+      console.log("mapaKorpa" + this.mapaKorpa);
     },
     dodajUKorpu() {
       this.$store.dispatch("cartModule/addToCart", {

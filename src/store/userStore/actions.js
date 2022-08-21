@@ -3,7 +3,10 @@ import axios from "axios";
 export default {
   setCurrentUser(context) {
     axios
-      .get("user/principal")
+      .get("user/principal",{
+        headers: { "Content-type": "application/json",'Authorization': localStorage.getItem("token") },
+        
+      })
       .then((response) => {
         console.log("\n\n ------- Ulogovani -------\n");
         console.log(response.data);

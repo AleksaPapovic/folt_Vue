@@ -5,6 +5,9 @@ export default {
   articles(state) {
     return state.articles;
   },
+  cartPrice(state) {
+    return state.cartPrice;
+  },
   cart(state) {
     return state.cart;
   },

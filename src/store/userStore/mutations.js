@@ -1,7 +1,10 @@
 export default {
   setUser(state, payload) {
     state.user = payload;
+    console.log("userr", state.user);
+    if(state.user !== ""){
     state.logged = true;
+    }
     console.log(state.user);
   },
   loggedOut(state) {

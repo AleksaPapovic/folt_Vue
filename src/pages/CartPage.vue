@@ -7,10 +7,22 @@
       <div class="container pt 2">
         <div class="row">
           <div class="col-md-1"></div>
-          <div v-if= "cartArticles!== undefined &&  cartArticles !== null &&  cartArticles !== []" class="col-md-8">
-
-            <the-order v-for="order in cartArticles"
-              :key="order.restaurantID" :orderItems="order"></the-order>
+          <div
+            v-if="
+              cartArticles !== undefined &&
+              cartArticles !== null &&
+              cartArticles !== []
+            "
+            class="col-md-8"
+          >
+            <the-order
+              v-for="order in cartArticles"
+              :key="order.restaurantID"
+              :id="order.id"
+              :restaurantId="order.restaurantId"
+              :orderItems="order"
+              @update-cart-price="(n) => (this.suma += n)"
+            ></the-order>
           </div>
           <div class="col-md-1">
             <button @click="poruci">Poruci</button>
@@ -54,35 +66,11 @@ export default {
     this.cartId = this.$store.getters["userModule/user"].cartId;
     this.getCartArticles();
   },
-   components: { TheOrder },
+  components: { TheOrder },
   computed: {
     cartArticles() {
       // eslint-disable-next-line vue/no-side-effects-in-computed-properties
       this.articles = this.$store.getters["cartModule/articles"];
-      console.log("artikli su" + this.articles);
-      // eslint-disable-next-line vue/no-side-effects-in-computed-properties
-      this.art = [];
-      this.articles.forEach(e => {
-       this.art.push({ article: e.id, brojPorucenih: e.quantity });
-        //this.restaurantID = value.restaurantId;
-      });
-      console.log("ART",JSON.parse(JSON.stringify(this.art)));
-       // eslint-disable-next-line vue/no-side-effects-in-computed-properties
-      this.art = JSON.parse(JSON.stringify(this.art));
-      let sumica = 0;
-  //    this.articles.forEach(e => {
-  //            console.log("ovde", e.cost.amount);
-  //          console.log("test ",e.id);
-   //            console.log("test2 ",e.quantity);
-   //     sumica += e.cost.amount * e.quantity;
-    //    this.korpa.push({
-     //     id: e.id,
-   //       brojPorucenih: e.quantity,
-     //    });
-   //   });
-      console.log(sumica);
-      // eslint-disable-next-line vue/no-side-effects-in-computed-properties
-      this.suma = sumica;
 
       return this.articles;
     },
@@ -154,9 +142,12 @@ export default {
             if (value.brojPorucenih === 0) {
               this.changeCart(element.id, 0);
               this.korpa.splice(this.korpa.indexOf(element), 1);
-              // const indeks = this.art.indexOf({ 'article': element, 'brojPorucenih': value.brojPorucenih });
-              // console.log("indeks jee" + indeks);
-              // this.art.splice(indeks+1, 1);
+              const indeks = this.art.indexOf({
+                article: element,
+                brojPorucenih: value.brojPorucenih,
+              });
+              console.log("indeks jee" + indeks);
+              this.art.splice(indeks + 1, 1);
             } else {
               this.changeCart(element.id, value.brojPorucenih);
               this.korpa[this.korpa.indexOf(element)] = value;

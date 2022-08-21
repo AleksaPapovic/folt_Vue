@@ -69,11 +69,6 @@ export default {
   },
   mounted() {
     this.getRestaurants();
-    let style = document.createElement("link");
-    style.type = "text/css";
-    style.rel = "stylesheet";
-    style.href = "css/onlineRestaurants.css";
-    document.head.appendChild(style);
     $(".multi-item-carousel").on("slide.bs.carousel", function (e) {
       let $e = $(e.relatedTarget),
         itemsPerSlide = 3,

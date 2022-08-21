@@ -5,6 +5,9 @@ export default {
   setCart(state, payload) {
     state.cart = payload;
   },
+  setCartPrice(state, payload) {
+    state.cartPrice += payload;
+  },
   setActiveCart(state, payload) {
     state.activeCartId = payload;
   },

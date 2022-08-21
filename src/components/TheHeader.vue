@@ -97,7 +97,6 @@ export default {
     },
   },
   mounted() {
-    this.cartId = this.$store.getters["userModule/user"].cartId;
     return this.$store.dispatch("userModule/setCurrentUser");
   },
   computed: {

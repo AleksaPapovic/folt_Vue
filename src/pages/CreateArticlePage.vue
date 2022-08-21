@@ -105,13 +105,7 @@ export default {
       articleImage: "",
     };
   },
-  mounted() {
-    let style = document.createElement("link");
-    style.type = "text/css";
-    style.rel = "stylesheet";
-    style.href = "css/createArticle.css";
-    document.head.appendChild(style);
-  },
+  mounted() {},
   methods: {
     uploadImage(e) {
       this.articleImage = "";
