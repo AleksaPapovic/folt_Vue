@@ -151,6 +151,10 @@ export default {
       }
       this.mapaKorpa = map;
       this.overallSum();
+      this.$store.dispatch("ordersModule/addProduct", {
+        "Id": this.id,
+        "OrderItemId": value.id
+      });
     },
     ukloniArtikal(value) {
       this.orderItemsArray.map((oi) => {
@@ -168,9 +172,13 @@ export default {
       });
       console.log("itemss", this.orderItems);
       this.overallSum();
+      this.$store.dispatch("ordersModule/removeProduct", {
+        "Id": this.id,
+        "OrderItemId": value.id
+      });
     },
     poruci() {
-      this.$store.dispatch("ordersModule/addOrder", {
+      this.$store.dispatch("orderModule/addOrder", {
         cartId: this.cartId,
         cartPrice: this.suma,
       });

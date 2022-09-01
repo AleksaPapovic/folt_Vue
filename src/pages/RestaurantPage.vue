@@ -211,27 +211,6 @@ export default {
       this.activeCartId = this.$store.getters["cartModule/activeCart"];
       console.log("aktivan" + this.activeCartId);
       this.dodajUKorpu();
-      // if (this.activeCartId === parseInt(this.$route.params.id)) {
-      //   this.dodajUKorpu();
-      //   // setTimeout(() => {
-      //   //   this.$router.push("/Cart/" + this.cartId);
-      //   // }, 500);
-      //   //this.$router.push('/Cart/1');
-      // } else if (this.activeCartId === -1) {
-      //   this.$store.commit("cartModule/setActiveCart", this.$route.params.id);
-      //   this.dodajUKorpu();
-      //   // setTimeout(() => {
-      //   //   this.$router.push("/Cart/" + this.cartId);
-      //   // }, 500);
-      // } else {
-      //   // greska
-      //   var r = confirm(
-      //     "Oslobodite aktivnu korpu da bi ste narucili iz novog restorana"
-      //   );
-      //   if (r == true) {
-      //     this.$router.push("/Cart/" + this.cartId);
-      //   }
-      // }
     },
     isRestaurantManager() {
       this.isManagerOfRestaurant =

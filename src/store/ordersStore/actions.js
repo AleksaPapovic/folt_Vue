@@ -67,4 +67,38 @@ export default {
         console.log("\n\n ----------------------\n\n");
       });
   },
+  addProduct(context, payload) {
+    axios
+      .post("/order/add", payload,{
+        headers: { "Content-type": "application/json",'Authorization': localStorage.getItem("token") },
+      })
+      .then((response) => {
+        console.log("\n\n -------Porudzbine -------\n");
+        context.commit("setOrders", response.data);
+        console.log(response.data);
+        console.log("\n\n ----------------------\n\n");
+      })
+      .catch((err) => {
+        console.log("\n\n ------- ERROR -------\n");
+        console.log(err);
+        console.log("\n\n ----------------------\n\n");
+      });
+  },
+  removeProduct(context, payload) {
+    axios
+      .post("/order/remove", payload,{
+        headers: { "Content-type": "application/json",'Authorization': localStorage.getItem("token") },
+      })
+      .then((response) => {
+        console.log("\n\n -------Porudzbine -------\n");
+        context.commit("setOrders", response.data);
+        console.log(response.data);
+        console.log("\n\n ----------------------\n\n");
+      })
+      .catch((err) => {
+        console.log("\n\n ------- ERROR -------\n");
+        console.log(err);
+        console.log("\n\n ----------------------\n\n");
+      });
+  },
 };
