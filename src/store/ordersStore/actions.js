@@ -20,6 +20,26 @@ export default {
         console.log("\n\n ----------------------\n\n");
       });
   },
+  async getAllSuggestions(context,payload) {
+    const userDetails =  await axios
+      .post("order/suggestion/all",{orderItemsIds: payload},{
+        headers: {
+           'Authorization': localStorage.getItem("token")
+        }
+      });
+      console.log("UPAO",userDetails);
+      return userDetails;
+  },
+  async getPersonalSuggestions(context,payload) {
+    const userDetails =  await axios
+      .post("order/suggestion/personal",{orderItemsIds: payload},{
+        headers: {
+           'Authorization': localStorage.getItem("token")
+        }
+      });
+      console.log("UPAO2",userDetails);
+      return userDetails;
+  },
   updateOrder(context, payload) {
     axios
       .put("rest/orders/updateOrder/" + payload.orderId, payload.order)

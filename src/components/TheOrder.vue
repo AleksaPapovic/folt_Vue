@@ -21,8 +21,29 @@
         >
         </base-article>
       </div>
+      <div
+        v-if="this.personalSuggestionItems !== undefined && this.personalSuggestionItems !== null"
+        class="col-md-8"
+      >
+        <h6>Preporuka na osnovu vasih porudzbina</h6>
+
+        <base-article
+          v-for="a in personalSuggestionItems"
+          :key="a.id"
+          :ida="a.id"
+          :name="a.name"
+          :description="a.description"
+          :price="a.price.amount"
+          :quantity="0"
+          @dodaj="noviArtikal"
+          @ukloni="ukloniArtikal"
+        >
+        </base-article>
+      </div>
       <div class="row pt-3">
         <div class="col-6 offset-4">
+          <button class="btn-success" @click="getAllSuggestion">Preporuka drugih</button>
+          <button class="btn-success" @click="getPersonalSuggestion">Moja preporuka</button>
           <button class="btn-success" @click="poruci">Poruci</button> Cena
           porudzbine:
           <div v-if="this.getPrice !== 0">{{ this.suma }}</div>
@@ -42,6 +63,9 @@ export default {
     return {
       articles: new Map(),
       orderItemsArray: [],
+      orderItemsIds: [],
+      allSuggestionItems: [],
+      personalSuggestionItems: [],
       korpa: [],
       cart: null,
       art: [],
@@ -83,6 +107,7 @@ export default {
           brojPorucenih: e.quantity,
           cena: e.cost.amount,
         });
+        this.orderItemsIds.push(e.id);
         //this.restaurantID = value.restaurantId;
       });
 
@@ -184,6 +209,14 @@ export default {
       });
       this.art = this.getCartArticles();
     },
+    async getAllSuggestion(){
+      var response = await this.$store.dispatch("ordersModule/getAllSuggestions",this.orderItemsIds);
+      this.allSuggestionItems = response.data.suggestedProducts;
+    },
+    async getPersonalSuggestion(){
+      var response = await this.$store.dispatch("ordersModule/getPersonalSuggestions",this.orderItemsIds);
+      this.personalSuggestionItems = response.data.suggestedProducts;
+    },
     getCartArticles() {
       this.$store.dispatch("cartModule/getCartArticles");
     },
@@ -191,10 +224,6 @@ export default {
       console.log("IDDD" + id);
       console.log("Value" + value);
       console.log(typeof value);
-      //    this.$store.dispatch("cartModule/changeCart", {
-      //      id: id,
-      //     quantity: parseInt(value),
-      //   });
     },
   },
 };
