@@ -29,6 +29,11 @@
               <li v-if="isLogged">
                 <router-link class="nav-link" to="/Profil">Profil</router-link>
               </li>
+              <li v-if="isCustomer">
+                <router-link class="nav-link" to="/Cart/customer"
+                  >Cart</router-link
+                >
+              </li>
               <li v-if="isAdmin">
                 <router-link class="nav-link" to="/AdministratorCrud"
                   >CRUD</router-link

@@ -23,9 +23,9 @@
       </div>
       <div
         v-if="this.personalSuggestionItems !== undefined && this.personalSuggestionItems !== null"
-        class="col-md-8"
+        class="col-md-8 offset-2"
       >
-        <h6>Preporuka na osnovu vasih porudzbina</h6>
+        <h6>Preporuka na osnovu vasih narudzbina</h6>
 
         <base-article
           v-for="a in personalSuggestionItems"
@@ -40,16 +40,45 @@
         >
         </base-article>
       </div>
-      <div class="row pt-3">
-        <div class="col-6 offset-4">
-          <button class="btn-success" @click="getAllSuggestion">Preporuka drugih</button>
-          <button class="btn-success" @click="getPersonalSuggestion">Moja preporuka</button>
-          <button class="btn-success" @click="poruci">Poruci</button> Cena
-          porudzbine:
-          <div v-if="this.getPrice !== 0">{{ this.suma }}</div>
-        </div>
+      <div
+        v-if="this.allSuggestionItems !== undefined && this.allSuggestionItems !== null"
+        class="col-md-8 offset-2"
+      >
+        <h6>Preporuka na osnovu narudzbina drugih korisnika</h6>
+
+        <base-article
+          v-for="a in allSuggestionItems"
+          :key="a.id"
+          :ida="a.id"
+          :name="a.name"
+          :description="a.description"
+          :price="a.price.amount"
+          :quantity="0"
+          @dodaj="noviArtikal"
+          @ukloni="ukloniArtikal"
+        >
+        </base-article>
       </div>
     </div>
+    <div class="row pt-3">
+        <div class="col-5 offset-2">
+          <button class="btn-success bg-dark" @click="getAllSuggestion">Preporuka drugih</button>
+          </div>
+          <div class="col-3">
+          <button class="btn-success bg-info" @click="getPersonalSuggestion">Moja preporuka</button>
+          </div>
+        </div>
+          <div class="row pt-2">
+          <div class="col-5 offset-2">
+          <button class="btn-success" @click="poruci">Poruci</button>
+        </div>
+        <div class="col-3">
+          <button class="btn-danger" @click="poruci">Otkazi</button>
+        </div>
+      </div>
+      <div class="row pt-5"><div class="col-6 offset-3">
+        <h2><span v-if="this.getPrice !== 0">{{ "Cena narudzbine: "+this.suma }} </span></h2>
+        </div></div>
   </div>
 </template>
 
@@ -64,8 +93,8 @@ export default {
       articles: new Map(),
       orderItemsArray: [],
       orderItemsIds: [],
-      allSuggestionItems: [],
-      personalSuggestionItems: [],
+      allSuggestionItems: undefined,
+      personalSuggestionItems: undefined,
       korpa: [],
       cart: null,
       art: [],

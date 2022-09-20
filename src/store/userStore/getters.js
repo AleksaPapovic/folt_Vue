@@ -9,7 +9,7 @@ export default {
     return state.logged;
   },
   isAdmin(state) {
-    if (state.user.role === 0) {
+    if (state.user.role === 3) {
       return true;
     }
   },
@@ -19,7 +19,7 @@ export default {
     }
   },
   isCustomer(state) {
-    if (state.user.role === 3) {
+    if (state.user.role === 0) {
       return true;
     }
   },

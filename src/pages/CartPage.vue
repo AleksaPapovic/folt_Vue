@@ -13,7 +13,7 @@
               cartArticles !== null &&
               cartArticles !== []
             "
-            class="col-md-8"
+            class="col-md-10"
           >
             <the-order
               v-for="order in cartArticles"
