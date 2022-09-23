@@ -45,6 +45,7 @@
               :name="a.name"
               :description="a.description"
               :price="a.price.amount"
+              :image="a.image"
               :isManagerRestaurant="isManagerOfRestaurant"
               @dodaj="noviArtikal"
               @ukloni="ukloniArtikal"

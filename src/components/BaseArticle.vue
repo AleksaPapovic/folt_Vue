@@ -2,7 +2,7 @@
   <div class="articleRow" @click="change($event)">
     <transition name="fullAImg">
       <div class="fullArticleImg" :class="fullTheme" v-show="isClicked">
-        <img src="https://picsum.photos/700/550" />
+        <img :src="image" />
       </div>
     </transition>
     <div class="d-flex">
@@ -25,7 +25,7 @@
       </div>
       <transition name="aImg">
         <div :class="theme" class="ml-auto" v-show="!isClicked">
-          <img class="slika" src="https://picsum.photos/700/550" />
+          <img class="slika" :src="image" />
         </div>
       </transition>
     </div>
@@ -78,6 +78,7 @@ export default {
     "name",
     "description",
     "price",
+    "image",
     "quantity",
     "isManagerRestaurant",
   ],

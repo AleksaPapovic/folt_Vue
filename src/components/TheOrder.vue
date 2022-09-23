@@ -16,6 +16,7 @@
           :description="a.description"
           :price="a.cost.amount"
           :quantity="a.quantity"
+          :image="a.image"
           @dodaj="noviArtikal"
           @ukloni="ukloniArtikal"
         >
@@ -35,6 +36,7 @@
           :description="a.description"
           :price="a.price.amount"
           :quantity="0"
+          :image="a.image"
           @dodaj="noviArtikal"
           @ukloni="ukloniArtikal"
         >
@@ -54,6 +56,7 @@
           :description="a.description"
           :price="a.price.amount"
           :quantity="0"
+          :image="a.image"
           @dodaj="noviArtikal"
           @ukloni="ukloniArtikal"
         >

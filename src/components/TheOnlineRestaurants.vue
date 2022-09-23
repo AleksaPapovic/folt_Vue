@@ -43,6 +43,7 @@
             :isOpen="r.status"
             :type="r.type"
             :id="r.id"
+            :logo="r.logo.image"
           ></BaseOnlineRestaurant>
         </div>
       </div>

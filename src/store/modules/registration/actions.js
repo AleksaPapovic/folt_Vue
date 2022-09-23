@@ -3,7 +3,7 @@ import axios from "axios";
 export default {
   register(context, payload) {
     console.log(payload);
-
+    
     axios
       .post("user/register", {
         username: payload.username,

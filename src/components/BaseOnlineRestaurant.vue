@@ -4,7 +4,7 @@
       <div class="d-flex justify-content-between position-absolute w-100"></div>
       <div class="img-hover-zoom img-hover-zoom--xyz">
         <img
-          src="https://picsum.photos/700/550"
+          :src="logo"
           class="card-img-top"
           alt="Product"
         />
@@ -67,7 +67,7 @@ export default {
       this.$router.push("/Restaurant/" + this.id);
     },
   },
-  props: ["name", "isOpen", "type", "id"],
+  props: ["name", "isOpen", "type", "id", "logo"],
 };
 </script>
 

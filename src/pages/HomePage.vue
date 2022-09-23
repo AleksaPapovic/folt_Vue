@@ -296,7 +296,11 @@ export default {
         surname: this.surname,
         gender: this.gender,
         dateOfBirth: this.dateofbirth,
-      });
+      }).then(() => {
+            this.closeRegistration();
+            $("body").removeClass("modal-open");
+            $(".modal-backdrop").remove();
+          });
     },
     login() {
       if (this.loginUsername === "") {
